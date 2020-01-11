@@ -15,7 +15,13 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('folder_id')->unsigned();
+            $table->string('title', 100);
+            $table->date('due_date');
+            $table->integer('status')->default(1);
             $table->timestamps();
+            // 外部キーを設定する
+            $table->foreign('folder_id')->references('id')->on('folders');
         });
     }
 
